@@ -1,0 +1,4 @@
+!commands edit !so -ul=moderator $(eval
+  const q = decodeURIComponent(`$(querystring)`), name = (q !== '' && q[0] === '@') ? q.substr(1) : q;
+  `${name} is also a streamer. Please show your love and follow ${name} at https://twitch.tv/${name} .  The last game they were playing is`
+) $(twitch $(eval const q = decodeURIComponent(`$(querystring)`), name = (q !== '' && q[0] === '@') ? q.substr(1) : q; `${name}`) "{{game}}")

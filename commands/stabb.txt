@@ -1,0 +1,1 @@
+!commands edit !stabb $(urlfetch https://betting-on-stabbs.com/stabbstream-twitch/scripts/stab_jokes.php)

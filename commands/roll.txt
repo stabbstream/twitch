@@ -1,0 +1,5 @@
+!commands add !roll $(eval
+  const q = decodeURIComponent(`$(querystring)`);
+  let input = q !== '' ? q : 6;
+  `🎲 $(user) rolled ${Math.floor(Math.random() * (input * 1)) + 1} 🎲`
+)

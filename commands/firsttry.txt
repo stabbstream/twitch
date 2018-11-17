@@ -1,0 +1,25 @@
+!commands edit !firsttry Actually, $(eval
+  const responses = [
+    'really is first',
+    'second',
+    'third',
+    'forth',
+    'fifth',
+    'sixth',
+    'seventh',
+    'eigth',
+    'ninth',
+    'tenth',
+    'eleventh',
+    'twelfth',
+    'thirteenth',
+    'fourteenth',
+    'fifteenth',
+    'sixteenth',
+    'seventeenth',
+    'eighteenth',
+    'nineteenth',
+    'twentieth'
+  ];
+  responses[Math.floor(Math.random() * responses.length)];
+) try
