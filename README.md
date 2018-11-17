@@ -19,6 +19,10 @@ The lib directory has library code to support the web Scripts
 
 The quote_lists directory holds lists of quotes to be server by Scripts.
 
+**RESTRICTIONS:**
+
+* A single quote can be a maximum of 400 characters long
+
 ## Web Paths
 
 Currently the web Scripts are hosted on betting-on-stabbs.com, the following web paths are active:
