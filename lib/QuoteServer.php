@@ -46,6 +46,6 @@ class QuoteServer
         if ($this->quotes === null) {
             throw new RuntimeException("No quote list. Use a load method to initialize quote list");
         }
-        return $this->quotes[rand(0, count($this->quotes))];
+        return $this->quotes[rand(0, count($this->quotes) - 1)];
     }
 }
