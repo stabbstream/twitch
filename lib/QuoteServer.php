@@ -6,26 +6,66 @@ class QuoteServer
     /** @var array[string] an array of quotes to serve */
     private $quotes = null;
 
+    /** @var string path to temporary directory */
+    private $tmpDir;
+
+    public function __construct()
+    {
+        $this->tmpDir = realpath(__DIR__ . '/../.tmp');
+    }
+
+    /**
+     * Get's a file from a file or web path
+     * @param string $path
+     * @return array
+     */
+    private function getFile($path) {
+        $fileContents = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($fileContents === false) {
+            throw new RuntimeException("Failed to get file at: $path");
+        }
+        return array_filter($fileContents, function($v, $k) {
+            return trim($v) !== '';
+        }, ARRAY_FILTER_USE_BOTH);
+    }
+
+    /**
+     * Sets the quotes from a file retrieved from a url, where each line is a quote
+     * @param string $url the web path to the file
+     * @return self $this
+     */
+    public function loadFromUrl($url)
+    {
+        $hash = sha1($url);
+        $hashPath = $this->tmpDir . "/$hash";
+
+        if (file_exists($hashPath) && time() - filemtime($hashPath) < 86400) { //One day
+            $this->quotes = unserialize(
+                file_get_contents($hashPath)
+            );
+        } else {
+            $fileContents = $this->getFile($url);
+            file_put_contents($hashPath, serialize($fileContents));
+            $this->quotes = $fileContents;
+        }
+        return $this;
+    }
+
     /**
      * Sets the quotes from a text file, where each line is a quote
-     * @param $filePath
-     * @return $this
+     * @param string $filePath the path to the text file
+     * @return self $this
      */
     public function loadFromFile($filePath)
     {
-        $fileContents = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        if ($fileContents !== false) {
-            $this->quotes = array_filter($fileContents);
-        } else {
-            throw new RuntimeException("Failed to load file: $filePath");
-        }
+        $this->quotes = $this->getFile($filePath);
         return $this;
     }
 
     /**
      * Sets the quotes from an array, where each index is a quote
      * @param array $quotes
-     * @return self
+     * @return self $this
      */
     public function loadFromArray($quotes)
     {
