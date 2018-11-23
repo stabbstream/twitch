@@ -24,7 +24,7 @@ class QuoteServer
         if ($fileContents === false) {
             throw new RuntimeException("Failed to get file at: $path");
         }
-        return array_filter($fileContents, function($v, $k) {
+        return array_filter($fileContents, function($v) {
             return trim($v) !== '';
         }, ARRAY_FILTER_USE_BOTH);
     }
