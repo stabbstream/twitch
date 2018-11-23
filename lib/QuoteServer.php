@@ -78,14 +78,39 @@ class QuoteServer
     }
 
     /**
+     * Validates the quote list exists and is valid
+     */
+    private function validateQuoteList()
+    {
+        if ($this->quotes === null) {
+            throw new RuntimeException("No quote list. Use a load method to initialize quote list");
+        }
+    }
+
+    /**
      * Returns a random quote from the quote list
      * @return string
      */
     public function pickRandomQuote()
     {
-        if ($this->quotes === null) {
-            throw new RuntimeException("No quote list. Use a load method to initialize quote list");
-        }
+        $this->validateQuoteList();
         return $this->quotes[rand(0, count($this->quotes) - 1)];
+    }
+
+    /**
+     * Returns the selected quote from the quote list
+     * @param $index int The index from the quoteList to return
+     * @return string
+     */
+    public function getQuote($index)
+    {
+        $this->validateQuoteList();
+        if ($index < 0) {
+            throw new RuntimeException("The getQuote method requires and index >= 0");
+        }
+        if ($index >= count($this->quotes)) {
+            throw new RuntimeException("The requested quote is greater then the list length (". count($this->quotes) . ")");
+        }
+        return $this->quotes[$index];
     }
 }
