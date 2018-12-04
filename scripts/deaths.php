@@ -4,7 +4,6 @@ require __DIR__ . "/../lib/Counter.php";
 
 $counterObj = new Counter(__DIR__ . '/../.counter');
 $action = $_GET['action'];
-$action = 'get-name';
 
 switch ($action) {
     case 'get-count':
