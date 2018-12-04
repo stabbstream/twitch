@@ -1,0 +1,17 @@
+#Sets the current death counter
+!commands edit !setdeathcounter -ul=moderator $(eval const api = $(urlfetch json https://betting-on-stabbs.com/stabbstream-twitch/scripts/deaths.php?action=set-default&counter_name=$(querystring)); `${api.status}`)
+
+#Gets the current death counter
+!commands edit !getdeathcounter -ul=moderator $(eval const api = $(urlfetch json https://betting-on-stabbs.com/stabbstream-twitch/scripts/deaths.php?action=get-name); `${api.name}`)
+
+#Gets the current death count for the current counter
+!commands edit !deaths -ul=moderator $(eval const api = $(urlfetch json https://betting-on-stabbs.com/stabbstream-twitch/scripts/deaths.php?action=get-count); `Stabbs has died ${api.count} times in ${api.name}`)
+
+#Increments the current death count for the current counter
+!commands edit !ded -ul=moderator $(eval const api = $(urlfetch json https://betting-on-stabbs.com/stabbstream-twitch/scripts/deaths.php?action=increment); `Stabbs has died ${api.count} times in ${api.name}`)
+
+#Decrements the current death count for the current counter
+!commands edit !unded -ul=moderator $(eval const api = $(urlfetch json https://betting-on-stabbs.com/stabbstream-twitch/scripts/deaths.php?action=decrement); `Stabbs has died ${api.count} times in ${api.name}`)
+
+#Resets the death count to zero for the current counter
+!commands edit !resetdeaths -ul=moderator $(eval const api = $(urlfetch json https://betting-on-stabbs.com/stabbstream-twitch/scripts/deaths.php?action=decrement); `Deaths reset to ${api.count} for ${api.name}`)
